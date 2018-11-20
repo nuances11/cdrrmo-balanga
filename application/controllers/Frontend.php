@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends CI_Controller {
+class Frontend extends CI_Controller {
 
 	function __construct(){
 	    parent::__construct();
@@ -18,15 +18,13 @@ class Admin extends CI_Controller {
         $this->template->set_additional_css($styles);
         $this->template->set_additional_js($js);
 
-	    $this->template->set_title('Admin - Dashboard');
-	    $this->template->set_template('admin');
+	    $this->template->set_title('CDRRMO - Balanga');
+	    $this->template->set_template('frontend');
 
-  	}
-
+      }
+      
 	public function index()
-	{        
-		$this->template->load('admin/index');
-    }
-
-
+	{
+		$this->load->view('welcome_message');
+	}
 }

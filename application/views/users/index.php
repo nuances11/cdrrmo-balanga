@@ -18,37 +18,34 @@
 			<div id="addUser" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
 				<div class="card-block pd-20">
 					<div class="form-layout">
+
+						<!-- ADD USER FORM -->
 						<form id="add_user_form">
+						<input type="hidden" name="action" value="add">
 						<div class="row mg-b-25">
-							<div class="col-lg-4">
+							<div class="col-lg-6">
 								<div class="form-group">
 									<label class="form-control-label">Firstname: <span class="tx-danger">*</span></label>
-									<input class="form-control" type="text" name="firstname" placeholder="Enter firstname">
+									<input class="form-control" type="text" name="firstname">
 								</div>
 							</div><!-- col-4 -->
-							<div class="col-lg-4">
+							<div class="col-lg-6">
 								<div class="form-group">
 									<label class="form-control-label">Lastname: <span class="tx-danger">*</span></label>
-									<input class="form-control" type="text" name="lastname" placeholder="Enter lastname">
-								</div>
-							</div><!-- col-4 -->
-							<div class="col-lg-4">
-								<div class="form-group">
-									<label class="form-control-label">Email address: <span class="tx-danger">*</span></label>
-									<input class="form-control" type="text" name="email" placeholder="Enter email address">
+									<input class="form-control" type="text" name="lastname">
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-8">
 								<div class="form-group mg-b-10-force">
-									<label class="form-control-label">Mail Address: <span class="tx-danger">*</span></label>
-									<input class="form-control" type="text" name="address" placeholder="Enter address">
+									<label class="form-control-label">Email Address: <span class="tx-danger">*</span></label>
+									<input class="form-control" type="email" name="email">
 								</div>
 							</div><!-- col-8 -->
 							<div class="col-lg-4">
 								<div class="form-group mg-b-10-force">
 									<label class="form-control-label">User Type: <span class="tx-danger">*</span></label>
-									<select class="form-control select2" data-placeholder="Choose country">
-										<option label="Choose country"></option>
+									<select class="form-control select2" name="user_type" data-placeholder="Choose User Type">
+										<option label="Choose User Type"></option>
 										<option value="1">Admin</option>
 										<option value="2">Staff</option>
 									</select>
@@ -57,19 +54,17 @@
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label class="form-control-label">Password: <span class="tx-danger">*</span></label>
-									<div class="input-group">
-										<button class="btn btn-info" id="show_password"><i class="fa fa-eye"></i> Show</button>
-										<input class="form-control pass_input" type="text" name="password">
-									</div>
+										<input class="form-control pass_input" type="password" name="password">
+									<label class="ckbox" style="margin-top: 10px;">
+										<input type="checkbox" id="show_pass">
+										<span>Show Password</span>
+									</label>
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-4">
 								<div class="form-group">
 									<label class="form-control-label">Confirm Password: <span class="tx-danger">*</span></label>
-									<div class="input-group">
-										<button class="btn btn-info" id="show_password"><i class="fa fa-eye"></i> Show</button>
-										<input class="form-control pass_input" type="text" name="cpass">
-									</div>
+										<input class="form-control pass_input" type="password" name="cpass">
 								</div>
 							</div><!-- col-4 -->
 							<div class="col-lg-4">
@@ -81,11 +76,75 @@
 						</div><!-- row -->
 
 						<div class="form-layout-footer">
-							<button class="btn btn-info" type="submit">Submit Form</button>
+							<button class="btn btn-info" type="submit">Add User</button>
 							<button class="btn btn-warning" type="reset">Reset</button>
 							<button class="btn btn-secondary">Cancel</button>
 						</div><!-- form-layout-footer -->
 						</form>
+
+						<!-- UPDATE USER FORM -->
+						<form id="update_user_form">
+						<input type="hidden" name="action" value="update">
+						<input type="hidden" name="user_id">
+						<div class="row mg-b-25">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-control-label">Firstname: <span class="tx-danger">*</span></label>
+									<input class="form-control" type="text" name="firstname">
+								</div>
+							</div><!-- col-4 -->
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label class="form-control-label">Lastname: <span class="tx-danger">*</span></label>
+									<input class="form-control" type="text" name="lastname">
+								</div>
+							</div><!-- col-4 -->
+							<div class="col-lg-8">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">Email Address: <span class="tx-danger">*</span></label>
+									<input class="form-control" type="email" name="email" readonly>
+								</div>
+							</div><!-- col-8 -->
+							<div class="col-lg-4">
+								<div class="form-group mg-b-10-force">
+									<label class="form-control-label">User Type: <span class="tx-danger">*</span></label>
+									<select class="form-control select2" name="user_type" data-placeholder="Choose User Type">
+										<option label="Choose User Type"></option>
+										<option value="1">Admin</option>
+										<option value="2">Staff</option>
+									</select>
+								</div>
+							</div><!-- col-4 -->
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label class="form-control-label">Password: <span class="tx-danger">*</span></label>
+										<input class="form-control pass_input" type="password" name="password">
+									<label class="ckbox" style="margin-top: 10px;">
+										<input type="checkbox" id="show_pass">
+										<span>Show Password</span>
+									</label>
+								</div>
+							</div><!-- col-4 -->
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label class="form-control-label">Confirm Password: <span class="tx-danger">*</span></label>
+										<input class="form-control pass_input" type="password" name="cpass">
+								</div>
+							</div><!-- col-4 -->
+							<div class="col-lg-4">
+								<div class="form-group">
+									<label class="form-control-label">Generate Password (Optional)</label>
+									<button class="btn btn-info btn-block" id="generate_pasword">Generate Password</button>
+								</div>
+							</div><!-- col-4 -->
+						</div><!-- row -->
+
+						<div class="form-layout-footer">
+							<button class="btn btn-info" type="submit">Update</button>
+							<button class="btn btn-secondary" id="cancel_update">Cancel</button>
+						</div><!-- form-layout-footer -->
+						</form>
+
 					</div><!-- form-layout -->
 				</div>
 			</div>

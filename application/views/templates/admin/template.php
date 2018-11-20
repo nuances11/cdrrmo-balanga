@@ -72,16 +72,23 @@
 				</div><!-- menu-item -->
 			</a><!-- sl-menu-link -->
 			<ul class="sl-menu-sub nav flex-column">
-				<li class="nav-item"><a href="table-basic.html" class="nav-link">General</a></li>
+				<li class="nav-item"><a href="<?php echo base_url() . 'admin/contents/flood' ;?>" class="nav-link">Flooding Susceptability</a></li>
+				<li class="nav-item"><a href="<?php echo base_url() . 'admin/contents/affected-population' ;?>" class="nav-link">Affected Population</a></li>
+				<li class="nav-item"><a href="<?php echo base_url() . 'admin/contents/vehicles-and-drivers' ;?>" class="nav-link">Vehicles & Drivers</a></li>
+				<li class="nav-item"><a href="<?php echo base_url() . 'admin/contents/evacuation-centers' ;?>" class="nav-link">Evacuation Centers</a></li>
 				<li class="nav-item"><a href="table-datatable.html" class="nav-link">Page</a></li>
 			</ul>
-			<a href="#" class="sl-menu-link">
+			<a href="#" class="sl-menu-link <?php echo ($this->uri->segment(2) == 'announcement') ? 'active' : '' ;?> ">
 				<div class="sl-menu-item">
 					<i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
 					<span class="menu-item-label">Announcements</span>
 					<i class="menu-item-arrow fa fa-angle-down"></i>
 				</div><!-- menu-item -->
 			</a><!-- sl-menu-link -->
+			<ul class="sl-menu-sub nav flex-column">
+				<li class="nav-item"><a href="<?php echo base_url() . 'admin/announcement' ;?>" class="nav-link">Add Post</a></li>
+				<li class="nav-item"><a href="<?php echo base_url() . 'admin/announcement/all' ;?>" class="nav-link">All Post</a></li>
+			</ul>
 		</div><!-- sl-sideleft-menu -->
 
 		<br>
