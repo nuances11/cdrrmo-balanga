@@ -36,11 +36,13 @@ class Announcement extends CI_Controller {
 
 	public function index()
 	{        
+        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
 		$this->template->load('announcement/index');
     }
     
     public function all()
     {
+        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
         $this->template->load('announcement/all');
     }
 	
@@ -260,6 +262,7 @@ class Announcement extends CI_Controller {
         if ($id) {
             $post = $this->announcement_model->getPost($id);
             if ($post) {
+                $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
                 $this->template->load_sub('post', $post);
                 $this->template->load('announcement/single-post');
             }else{
@@ -276,6 +279,7 @@ class Announcement extends CI_Controller {
         if ($id) {
             $post = $this->announcement_model->getPost($id);
             if ($post) {
+                $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
                 $this->template->load_sub('post', $post);
                 $this->template->load('announcement/edit-post');
             }else{

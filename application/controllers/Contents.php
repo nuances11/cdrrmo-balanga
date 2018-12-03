@@ -34,6 +34,7 @@ class Contents extends CI_Controller
 
     public function flood()
     {
+        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
         $this->template->load('contents/flood');
     }
 
@@ -198,6 +199,7 @@ class Contents extends CI_Controller
 
     public function affected_population()
     {
+        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
         $this->template->load('contents/affected-population');
     }
 
@@ -359,6 +361,7 @@ class Contents extends CI_Controller
 
     public function vehicles_and_drivers()
     {
+        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
         $this->template->load('contents/vehicles-and-drivers');
     }
 
@@ -515,6 +518,7 @@ class Contents extends CI_Controller
 
     public function evacuation_centers()
     {
+        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
         $this->template->load('contents/evacuation-centers');
     }
 

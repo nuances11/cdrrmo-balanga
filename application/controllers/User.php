@@ -33,6 +33,7 @@ class User extends CI_Controller {
 
 	public function index()
 	{        
+        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
 		$this->template->load('users/index');
 	}
 	

@@ -7,6 +7,25 @@ class Users_Model extends CI_Model
             $this->load->database();
     }
 
+    public function chkUserLogin($creds)
+    {
+        $this->db->select('*')
+                ->from('users')
+                ->where('email', $creds['email'])
+                ->limit(1);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            $user =  $query->row();
+
+            // Check if password input is correct
+            if (password_verify($creds['password'], $user->password)) {
+                return $user;
+            } 
+        }
+
+        return false;
+    }
+
     public function getUsers()
     {
         return $this->db->get("users");

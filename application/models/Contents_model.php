@@ -12,9 +12,36 @@ class Contents_model extends CI_Model
         return $this->db->get("flood");
     }
 
+    public function getallFloodData(){
+        $this->db->select('*');
+        $query = $this->db->get('flood');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        }
+
+    }
+
+    public function getallVehicleAndDriverData()
+    {
+        $this->db->select('*');
+        $query = $this->db->get('vehicle_and_driver');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        }
+    }
+
     public function getAffectedPopulationData()
     {
         return $this->db->get("affected_population");
+    }
+
+    public function getallAffectedPopulationData(){
+        $this->db->select('*');
+        $query = $this->db->get('affected_population');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        }
+
     }
 
     public function addFloodData()
@@ -134,6 +161,8 @@ class Contents_model extends CI_Model
         return $this->db->get("vehicle_and_driver");
     }
 
+    
+
     public function addVehicleAndDriver()
     {
         $data = array(
@@ -193,6 +222,18 @@ class Contents_model extends CI_Model
     public function getEvacuationCenters()
     {
         return $this->db->get("evacuation_centers");
+    }
+
+    public function getallEvacuationCentersData()
+    {
+        $this->db->select('*')
+                ->from('evacuation_centers');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        }
+
+        return [];
     }
 
     public function addEvacuationCenters()
