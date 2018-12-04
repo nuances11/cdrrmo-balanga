@@ -5,7 +5,9 @@ class Contents extends CI_Controller
 	    parent::__construct();
 		$this->load->model('users_model');
 		$this->load->model('announcement_model');
-		$this->load->model('contents_model');
+        $this->load->model('contents_model');
+        
+        is_logged_in($this->session->userdata('id'));        
 
 	    $styles = array(
 			'assets/lib/datatables/jquery.dataTables.css',

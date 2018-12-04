@@ -36,7 +36,24 @@ class Frontend extends CI_Controller {
         if ($id) {
             $post = $this->announcement_model->getPost($id);
             if ($post) {
+                $styles = array(
+                    'assets/frontend/css/blog.css',
+                );
+        
+                $js = array(
+        
+                );
+        
+                $this->template->set_additional_css($styles);
+                $this->template->set_additional_js($js);
+                
+                $data = [
+                    'title' => $post->title
+                ];
+                $this->template->load_sub('header', $data);
+                $this->template->load_sub('announcements', $this->announcement_model->getIndexPost(5));
                 $this->template->load_sub('post', $post);
+                
                 $this->template->load('frontend/single-post');
             }else{
                 redirect('404_override');

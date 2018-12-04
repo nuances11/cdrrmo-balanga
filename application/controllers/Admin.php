@@ -26,7 +26,8 @@ class Admin extends CI_Controller {
 
 	public function index()
 	{   
-        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
+		is_logged_in($this->session->userdata('id'));
+        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata('id')));
 		$this->template->load_sub('announcements', $this->announcement_model->getIndexPost(5));
 		$this->template->load('admin/index');
 	}
@@ -63,7 +64,8 @@ class Admin extends CI_Controller {
 					'id' => $res->id,
 					'email' => $res->email,
 					'fullname' => $res->first_name . ' ' . $res->last_name,
-					'user_type' => $res->user_type
+					'user_type' => $res->user_type,
+					'is_logged_in' => TRUE
 				);
 				// Add user data in session
 				$this->session->set_userdata($session_data);

@@ -6,7 +6,7 @@
 			<i class="icon-calendar-empty"></i>
 			<?= date("jS F, Y", strtotime($post->created_at));  ;?>
 			<div>
-				<a href="#">
+				<a href="<?php echo base_url() . 'post/show/' . $post->id ;?>">
 					<?= $post->title ;?></a>
 			</div>
 		</li>

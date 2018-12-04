@@ -52,12 +52,14 @@
 					<span class="menu-item-label">Dashboard</span>
 				</div><!-- menu-item -->
 			</a><!-- sl-menu-link -->
+			<?php if($this->session->userdata('id') && $this->session->userdata('user_type') == 1) :?>
 			<a href="<?php echo base_url() . 'admin/users' ;?>" class="sl-menu-link <?php echo ($this->uri->segment(2) == 'users') ? 'active' : '' ;?> ">
 				<div class="sl-menu-item">
 					<i class="menu-item-icon icon ion-person tx-20"></i>
 					<span class="menu-item-label">Users</span>
 				</div><!-- menu-item -->
 			</a><!-- sl-menu-link -->
+			<?php endif;?>
 			<a href="mailbox.html" class="sl-menu-link">
 				<div class="sl-menu-item">
 					<i class="menu-item-icon icon ion-ios-email-outline tx-24"></i>

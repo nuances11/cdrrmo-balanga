@@ -6,7 +6,8 @@ class User extends CI_Controller {
 	function __construct(){
 	    parent::__construct();
 		$this->load->model('users_model');
-
+        is_logged_in($this->session->userdata('id'));        
+        
 	    $styles = array(
 			'assets/lib/datatables/jquery.dataTables.css',
 			'assets/lib/highlightjs/github.css',

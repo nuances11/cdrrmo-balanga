@@ -59,15 +59,20 @@ class Announcement_model extends CI_Model
 
     public function getAnnouncement()
     {
-        return $this->db->get("announcement");
+        $this->db->select('*')
+                    ->from('announcement')
+                    ->join('users','users.id = announcement.user_id');
+        return $this->db->get();
     }
 
     public function getPost($id=NULL)
     {
         if ($id) {
             $this->db->select('*')
-                    ->where('id', $id);
-            $query = $this->db->get('announcement');
+                    ->from('announcement')
+                    ->join('users','users.id = announcement.user_id')
+                    ->where('announcement.id', $id);
+            $query = $this->db->get();
             if ($query->num_rows() > 0) {
                 return $query->row();
             }

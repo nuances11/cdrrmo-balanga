@@ -4,7 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Announcement extends CI_Controller {
 
 	function __construct(){
-	    parent::__construct();
+        parent::__construct();
+        is_logged_in($this->session->userdata('id'));
 		$this->load->model('users_model');
 		$this->load->model('announcement_model');
 
@@ -32,7 +33,7 @@ class Announcement extends CI_Controller {
 	    $this->template->set_title('Admin - Announcement');
 	    $this->template->set_template('admin');
 
-  }
+    }
 
 	public function index()
 	{        
@@ -59,7 +60,7 @@ class Announcement extends CI_Controller {
 
         foreach($query->result() as $r) {
 
-            $author = ($r->user_id) ? $r->user_id : 'N/A' ;
+            $author = ($r->user_id) ? $r->first_name . ' ' . $r->last_name : 'N/A' ;
 			$created = date('F jS Y h:i:sa', strtotime($r->created_at));
 			$edit_btn = '<a href="' . base_url() . 'admin/announcement/edit/' . $r->id . '" data-id="' . $r->id . '" class="btn btn-success btn-small btn-icon btnEdit"><div><i class="fa fa-fw fa-edit"></i></div></a>';
 			$delete_btn = '<a href="javascript:void(0);" data-id="' . $r->id . '" class="btn btn-danger btn-small btn-icon mg-r-5 btnDelete"><div><i class="fa fa-fw fa-trash"></i></div></a>';

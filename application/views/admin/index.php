@@ -1,10 +1,3 @@
-<style>
-	.ellipsis {
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-	}
-</style>
 <nav class="breadcrumb sl-breadcrumb">
 	<a class="breadcrumb-item" href="index.html">CDRRMO</a>
 	<span class="breadcrumb-item active">Dashboard</span>
