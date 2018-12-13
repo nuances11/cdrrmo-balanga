@@ -5,6 +5,19 @@ $(document).ready(function () {
     $('#update_affected_population_form').hide();
     $('#update_vehicle_and_driver_form').hide();
     $('#update_evacuation_center_form').hide();
+
+    var floodDataTable =  $('#messages').DataTable({
+        "ajax": {
+            url : base_url + 'admin/messages/datatable',
+            type : 'GET'
+        },
+        responsive: true,
+        language: {
+          searchPlaceholder: 'Search...',
+          sSearch: '',
+          lengthMenu: '_MENU_ items/page',
+        }
+    });
     
 
     var floodDataTable =  $('#flood').DataTable({

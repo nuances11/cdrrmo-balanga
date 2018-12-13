@@ -671,4 +671,72 @@ class Contents extends CI_Controller
         exit;
     }
 
+    public function contact_message()
+    {
+        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
+        $this->template->load('message/index');
+    }
+
+    public function show_message($id)
+    {
+        if ($id) {
+            $message = $this->contents_model->getMessage($id);
+            if ($message) {
+                $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
+                $this->template->load_sub('message', $message);
+                $this->template->load('message/single-message');
+            }else{
+                redirect('404_override');
+            }
+        }else{
+            redirect('404_override');
+        }
+    }
+
+    public function contact_message_dataTable()
+    {
+        $draw = intval($this->input->get("draw"));
+        $start = intval($this->input->get("start"));
+        $length = intval($this->input->get("length"));
+
+        $query = $this->contents_model->getMessagesData();
+
+        $data = [];
+        $risk ='';
+
+        foreach($query->result() as $r) {
+
+		
+			$author = ($r->first_name) ? $r->first_name . ' ' . $r->last_name : 'N/A' ;
+			$created = date('F jS Y h:i:sa', strtotime($r->created_at));
+			$delete_btn = '<a href="javascript:void(0);" data-id="' . $r->id . '" class="btn btn-danger btn-small btn-icon mg-r-5 btnDelete"><div><i class="fa fa-fw fa-trash"></i></div></a>';
+            $action = $delete_btn;
+            $content = '<a href="' . base_url() . 'admin/message/show/' . $r->id . '" data-id="' . $r->id . '" class="btn btn-warning btnViewContent">View</a>';
+
+            $data[] = array(
+
+                $r->id,
+                $author,
+                $r->phone_number,
+				$content,
+                $action
+
+           );
+
+        }
+
+        $result = array(
+
+            "draw" => $draw,
+            "recordsTotal" => $query->num_rows(),
+            "recordsFiltered" => $query->num_rows(),
+            "data" => $data
+
+        );
+
+        echo json_encode($result);
+        exit();
+    }
+
+
 } 

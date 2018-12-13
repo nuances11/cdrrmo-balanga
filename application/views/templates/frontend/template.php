@@ -9,6 +9,8 @@
 	<meta name="author" content="Ansonika">
 	<title><?php echo $title ;?></title>
 
+	<meta name="base_url" content="<?php echo BASE_URL() ;?>">
+
 	<!-- BASE CSS -->
 	<link href="<?php echo base_url() ;?>assets/frontend/css/animate.min.css" rel="stylesheet">
 	<link href="<?php echo base_url() ;?>assets/frontend/css/bootstrap.min.css" rel="stylesheet">
@@ -129,7 +131,7 @@
 	<!-- COMMON SCRIPTS -->
 	<script src="<?php echo base_url() ;?>assets/frontend/js/jquery-2.2.4.min.js"></script>
 	<script src="<?php echo base_url() ;?>assets/frontend/js/common_scripts.js"></script>
-	<script src="<?php echo base_url() ;?>assets/frontend/assets/validate.js"></script>
+	<!-- <script src="<?php echo base_url() ;?>assets/frontend/assets/validate.js"></script> -->
 	<script src="<?php echo base_url() ;?>assets/frontend/js/header_sticky_1.js"></script>
 	<script src="<?php echo base_url() ;?>assets/frontend/js/functions.js"></script>
 
@@ -138,6 +140,19 @@
 	<script src="<?php echo base_url() ;?>assets/frontend/layerslider/js/layerslider.transitions.js"></script>
 	<script src="<?php echo base_url() ;?>assets/frontend/layerslider/js/layerslider.kreaturamedia.jquery.js"></script>
 	<script src="<?php echo base_url() ;?>assets/frontend/js/slider_func.js"></script>
+
+	<!-- Additional Scripts -->
+	<?php if(isset($add_js)) : ?>
+		<?php foreach($add_js as $js): ?>
+			<script src="<?php echo base_url() . $js; ?>"></script>
+		<?php endforeach; ?>
+	<?php endif; ?>
+
+	<?php if(isset($extra_js)) : ?>
+		<script>
+			<?php echo $extra_js; ?>
+		</script>
+	<?php endif; ?>
 
 </body>
 </html>

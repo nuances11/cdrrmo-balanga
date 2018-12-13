@@ -14,7 +14,7 @@ class Frontend extends CI_Controller {
         );
 
         $js = array(
-
+            'assets/frontend/js/frontend.js',
         );
 
         $this->template->set_additional_css($styles);
@@ -71,6 +71,44 @@ class Frontend extends CI_Controller {
         ];
         $this->template->load_sub('header', $data);
         $this->template->load('frontend/contact-us');
+    }
+
+    public function contactus_send()
+    {
+        $response = array();
+
+        $this->form_validation->set_rules('first_name','First Name', 'required');
+        $this->form_validation->set_rules('last_name','Last Name', 'required');
+        $this->form_validation->set_rules('address','Address', 'required');
+        $this->form_validation->set_rules('phone_number','Phone Number', 'required|regex_match[^(09|\+639)\d{9}$^]',
+            array('regex_match' => 'Please provide a valid %s <strong>ex: 09 or +639</strong>'));
+
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $response['validation_errors'] = validation_errors();
+            $response['success'] = FALSE;
+
+        }else{
+
+            $res = $this->contents_model->addContactDetails();
+
+            if ($res) {
+
+                $response['success'] = TRUE;
+                $response['message'] = 'Message sent!';
+
+            }else{
+
+                $response['success'] = FALSE;
+                $response['message'] = 'Error sending message';
+
+            }
+
+        }
+
+        echo json_encode($response);
+        exit;
     }
 
     public function hazard_map()

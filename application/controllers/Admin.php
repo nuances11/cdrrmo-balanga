@@ -7,6 +7,7 @@ class Admin extends CI_Controller {
 	    parent::__construct();
 		$this->load->model('announcement_model');
 		$this->load->model('users_model');
+		$this->load->model('contents_model');
 
 	    $styles = array(
 
@@ -29,6 +30,7 @@ class Admin extends CI_Controller {
 		is_logged_in($this->session->userdata('id'));
         $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata('id')));
 		$this->template->load_sub('announcements', $this->announcement_model->getIndexPost(5));
+		$this->template->load_sub('messages', $this->contents_model->getIndexMessage(5));
 		$this->template->load('admin/index');
 	}
 	

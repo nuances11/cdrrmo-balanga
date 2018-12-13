@@ -4,7 +4,6 @@
 </nav>
 
 <div class="sl-pagebody">
-
 	<div class="row row-sm">
 
 		<div class="col-xl-4 mg-t-20 mg-xl-t-0">
@@ -14,49 +13,21 @@
 					<a href=""><i class="icon ion-more"></i></a>
 				</div><!-- card-header -->
 				<div class="list-group list-group-flush">
-					<a href="" class="list-group-item list-group-item-action media">
-						<img src="../img/img10.jpg" alt="">
-						<div class="media-body">
-							<div class="msg-top">
-								<span>Mienard B. Lumaad</span>
-								<span>4:09am</span>
-							</div>
-							<p class="msg-summary">Many desktop publishing packages and web page editors now use...</p>
-						</div><!-- media-body -->
-					</a><!-- list-group-item -->
-					<a href="" class="list-group-item list-group-item-action media">
-						<img src="../img/img9.jpg" alt="">
-						<div class="media-body">
-							<div class="msg-top">
-								<span>Isidore Dilao</span>
-								<span>Yesterday 3:00am</span>
-							</div>
-							<p class="msg-summary">On the other hand, we denounce with righteous indignation and dislike...</p>
-						</div><!-- media-body -->
-					</a><!-- list-group-item -->
-					<a href="" class="list-group-item list-group-item-action media">
-						<img src="../img/img8.jpg" alt="">
-						<div class="media-body">
-							<div class="msg-top">
-								<span>Kirby Avendula</span>
-								<span>Yesterday 3:00am</span>
-							</div>
-							<p class="msg-summary">It is a long established fact that a reader will be distracted by the readable...</p>
-						</div><!-- media-body -->
-					</a><!-- list-group-item -->
-					<a href="" class="list-group-item list-group-item-action media">
-						<img src="../img/img7.jpg" alt="">
-						<div class="media-body">
-							<div class="msg-top">
-								<span>Roven Galeon</span>
-								<span>Yesterday 3:00am</span>
-							</div>
-							<p class="msg-summary">Than the fact that climate change may be causing it to rapidly disappear... </p>
-						</div><!-- media-body -->
-					</a><!-- list-group-item -->
+					<?php foreach($messages as $message):?>
+						<a href="<?php echo base_url() . 'admin/message/show/' . $message->id; ?>" class="list-group-item list-group-item-action media">
+							<div class="media-body">
+								<div class="msg-top">
+									<span><?= $message->first_name . ' ' . $message->last_name ;?></span>
+									<span><?php echo $message->created_at;?></span>
+								</div>
+								<?php $mess = strlen(strip_tags($message->message_contact)) > 150 ? substr(strip_tags($message->message_contact),0,150)."..." : strip_tags($message->message_contact) ;?>
+								<p class="msg-summary"><?php echo $mess ;?></p>
+							</div><!-- media-body -->
+						</a><!-- list-group-item -->
+					<?php endforeach;?>
 				</div><!-- list-group -->
 				<div class="card-footer">
-					<a href="" class="tx-12"><i class="fa fa-angle-down mg-r-3"></i> Load more messages</a>
+					<a href="<?php echo base_url() . 'admin/messages' ;?>" class="tx-12"><i class="fa fa-angle-down mg-r-3"></i> Load more messages</a>
 				</div><!-- card-footer -->
 			</div><!-- card -->
 		</div><!-- col-3 -->

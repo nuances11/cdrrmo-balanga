@@ -6,6 +6,7 @@ $route['admin/login'] = 'admin/login';
 // Frontend 
 $route['post/show/(:num)'] = 'frontend/show_post/$1';
 $route['contact-us'] = 'frontend/contactus';
+$route['contact-us/send'] = 'frontend/contactus_send'; 
 $route['hazard-map'] = 'frontend/hazard_map';
 $route['evacuation'] = 'frontend/evacuation';
 $route['without-disaster'] = 'frontend/without_disaster';
@@ -40,6 +41,10 @@ $route['admin/announcement/action'] = 'announcement/do_action';
 $route['admin/announcement/all'] = 'announcement/all';
 $route['admin/announcement/show/(:num)'] = 'announcement/show_post/$1';
 $route['admin/announcement/edit/(:num)'] = 'announcement/edit_post/$1';
+
+$route['admin/messages'] = 'contents/contact_message';
+$route['admin/messages/datatable'] = 'contents/contact_message_dataTable';
+$route['admin/message/show/(:num)'] = 'contents/show_message/$1';
 
 $route['admin/users'] = 'user';
 $route['admin/users/datatable'] = 'user/datatable';

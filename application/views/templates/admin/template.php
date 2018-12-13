@@ -60,7 +60,7 @@
 				</div><!-- menu-item -->
 			</a><!-- sl-menu-link -->
 			<?php endif;?>
-			<a href="mailbox.html" class="sl-menu-link">
+			<a href="<?php echo base_url() . 'admin/messages' ;?>" class="sl-menu-link">
 				<div class="sl-menu-item">
 					<i class="menu-item-icon icon ion-ios-email-outline tx-24"></i>
 					<span class="menu-item-label">Messages</span>

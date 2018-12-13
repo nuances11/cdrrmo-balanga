@@ -7,32 +7,32 @@
 			<h3>Contact us</h3>
 			<div>
 				<div id="message-contact"></div>
-				<form method="post" action="assets/contact.php" id="contactform">
+				<form id="contactform">
 					<div class="row">
 						<div class="col-md-6 col-sm-6">
 							<div class="form-group">
 								<label>First name:</label>
-								<input type="text" class="form-control styled" id="name_contact" name="name_contact" placeholder="Jhon">
+								<input type="text" class="form-control styled" id="first_name" name="first_name" placeholder="Jhon">
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-6">
 							<div class="form-group">
 								<label>Last name:</label>
-								<input type="text" class="form-control styled" id="lastname_contact" name="lastname_contact" placeholder="Doe">
+								<input type="text" class="form-control styled" id="last_name" name="last_name" placeholder="Doe">
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6 col-sm-6">
 							<div class="form-group">
-								<label>Email:</label>
-								<input type="email" id="email_contact" name="email_contact" class="form-control styled" placeholder="jhon@email.com">
+								<label>Address</label>
+								<input type="text" id="address" name="address" class="form-control styled" placeholder="">
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-6">
 							<div class="form-group">
 								<label>Phone number:</label>
-								<input type="text" id="phone_contact" name="phone_contact" class="form-control styled" placeholder="00 44 5435435">
+								<input type="text" id="phone_number" name="phone_number" class="form-control styled" placeholder="+639171576335">
 							</div>
 						</div>
 					</div>
@@ -41,13 +41,14 @@
 							<div class="form-group">
 								<label>Your message:</label>
 								<textarea rows="5" id="message_contact" name="message_contact" class="form-control styled" style="height:100px;"
-								 placeholder="Hello world!"></textarea>
+								 placeholder="Type your message..."></textarea>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6">
-							<p><input type="submit" value="Submit" class="btn_1" id="submit-contact"></p>
+							<button type="submit" class="btn_1">Submit</button>
+							<!-- <p><input type="submit" value="Submit" class="btn_1" id="submit-contact"></p> -->
 						</div>
 					</div>
 				</form>

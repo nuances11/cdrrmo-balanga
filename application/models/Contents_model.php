@@ -288,6 +288,48 @@ class Contents_model extends CI_Model
         return [];
     }
 
+    public function addContactDetails()
+    {
+        $data = array(
+            'first_name' => $this->input->post('first_name'),
+            'last_name' => $this->input->post('last_name'),
+            'address' => $this->input->post('address'),
+            'phone_number' => $this->input->post('phone_number'),
+            'message_contact' => $this->input->post('message_contact')
+        );
+
+        return $this->db->insert('contact_message', $data);
+    }
+
+    public function getMessagesData()
+    {
+        return $this->db->get("contact_message");
+    }
+
+    public function getMessage($id)
+    {
+        $this->db->select('*')
+                ->from('contact_message')
+                ->where('id', $id);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        }
+
+        return [];
+    }
+
+    public function getIndexMessage($total_post = false){
+        $this->db->select('*');
+        if ($total_post) {
+            $this->db->limit($total_post);
+        }
+        $query = $this->db->get('contact_message');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        }
+    }
+
 }
 
 ?>
