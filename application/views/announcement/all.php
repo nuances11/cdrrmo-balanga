@@ -15,7 +15,6 @@
 			<table id="announcement" class="table display responsive nowrap">
 				<thead>
 					<tr>
-						<th class="wd-15p">ID</th>
 						<th class="wd-15p">Author</th>
 						<th class="wd-20p">Content</th>
 						<th class="wd-15p">Status</th>

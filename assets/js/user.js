@@ -89,6 +89,33 @@ $(document).ready(function () {
 
     })
 
+    $(document).on('submit', '#update_profile_form', function(e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        console.log(data);
+
+        $.ajax({
+            type: "POST",
+            url: base_url + "admin/edit-profile/submit",
+            data: data,
+            dataType: "json",
+            success: function(response)
+            {
+                console.log(response);
+                if (response.success) {
+                    toastr.success(response.message);
+                }else{
+                    if (response.validation_errors) {
+                        toastr.error(response.validation_errors);
+                    }else{
+                        toastr.error(response.message);
+                    }
+                }
+            }
+        });
+                    
+    })
+
     $(document).on('submit', '#add_user_form', function(e) {
         e.preventDefault();
         var data = $(this).serialize();
@@ -170,6 +197,34 @@ $(document).ready(function () {
                     $('#add_user_form').show();
                     toastr.success(response.message);
                     usersDataTable.ajax.reload();
+                }else{
+                    if (response.validation_errors) {
+                        toastr.error(response.validation_errors);
+                    }else{
+                        toastr.error(response.message);
+                    }
+                }
+            }
+        });
+                    
+    })
+
+    $(document).on('submit', '#change_password_form', function(e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+        console.log(data);
+
+        $.ajax({
+            type: "POST",
+            url: base_url + "admin/change-password/submit",
+            data: data,
+            dataType: "json",
+            success: function(response)
+            {
+                console.log(response);
+                if (response.success) {
+                    $('#change_password_form').trigger('reset');
+                    toastr.success(response.message);
                 }else{
                     if (response.validation_errors) {
                         toastr.error(response.validation_errors);

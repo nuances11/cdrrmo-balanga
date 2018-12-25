@@ -145,6 +145,16 @@ class Contents_model extends CI_Model
         return [];
     }
 
+    public function deleteMessage($id)
+    {
+        $this->db->where('id', $id);
+        $res = $this->db->delete('contact_message');
+        if ($res) {
+            return $res;
+        }
+        return [];
+    }
+
     public function deleteAffectedPopulationData($id)
     {
         $this->db->where('id', $id);
@@ -288,14 +298,15 @@ class Contents_model extends CI_Model
         return [];
     }
 
-    public function addContactDetails()
+    public function addContactDetails($images = '')
     {
         $data = array(
             'first_name' => $this->input->post('first_name'),
             'last_name' => $this->input->post('last_name'),
             'address' => $this->input->post('address'),
             'phone_number' => $this->input->post('phone_number'),
-            'message_contact' => $this->input->post('message_contact')
+            'message_contact' => $this->input->post('message_contact'),
+            'images' => $images
         );
 
         return $this->db->insert('contact_message', $data);

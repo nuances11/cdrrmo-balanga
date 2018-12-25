@@ -93,6 +93,7 @@ class Users_Model extends CI_Model
         
         return [];
     }
+    
 
     public function deleteUser($id){
         $this->db->where('id', $id);
@@ -102,6 +103,36 @@ class Users_Model extends CI_Model
         }
 
         return [];
+    }
+
+    public function validatePassword($password, $id)
+    {
+
+        $this->db->select('password')
+                ->where('id', $id);
+        $query = $this->db->get('users')->row();
+
+        if ($query) {
+            if (password_verify($password, $query->password)) {
+                return TRUE;
+            }else{
+                return FALSE;
+            }
+        }
+          
+        return[];
+    }
+
+    public function updatePassword($id)
+    {
+        $passData = array(
+            'password' => password_hash($this->input->post('new_pass'), PASSWORD_DEFAULT)
+        );
+
+        $this->db->where('id', $id);
+        $pass = $this->db->update('users', $passData);
+
+        return $pass;
     }
 
 }

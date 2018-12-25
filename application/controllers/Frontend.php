@@ -74,7 +74,16 @@ class Frontend extends CI_Controller {
     }
 
     public function contactus_send()
-    {
+    {   
+
+        $count_uploaded_files = count( $_FILES['images']['name'] );
+
+        if ($count_uploaded_files > 0) {
+
+            $this->form_validation->set_rules('images[]','Upload image','callback_fileupload_check');
+
+        }
+        
         $response = array();
 
         $this->form_validation->set_rules('first_name','First Name', 'required');
@@ -91,7 +100,7 @@ class Frontend extends CI_Controller {
 
         }else{
 
-            $res = $this->contents_model->addContactDetails();
+            $res = $this->contents_model->addContactDetails(serialize($this->_uploaded));
 
             if ($res) {
 
@@ -109,6 +118,60 @@ class Frontend extends CI_Controller {
 
         echo json_encode($response);
         exit;
+    }
+
+    // now the callback validation that deals with the upload of files
+    public function fileupload_check()
+    {
+        
+        // we retrieve the number of files that were uploaded
+        $number_of_files = sizeof($_FILES['images']['tmp_name']);
+    
+        // considering that do_upload() accepts single files, we will have to do a small hack so that we can upload multiple files. For this we will have to keep the data of uploaded files in a variable, and redo the $_FILE.
+        $files = $_FILES['images'];
+    
+        // first make sure that there is no error in uploading the files
+        for($i=0;$i<$number_of_files;$i++)
+        {
+            if($_FILES['images']['error'][$i] != 0)
+            {
+                // save the error message and return false, the validation of uploaded files failed
+                $this->form_validation->set_message('fileupload_check', 'Couldn\'t upload the file(s)');
+                return FALSE;
+            }
+        }
+        
+        // we first load the upload library
+        $this->load->library('upload');
+        // next we pass the upload path for the images
+        $config['upload_path'] = FCPATH . 'uploads/contact_messages/';
+        // also, we make sure we allow only certain type of images
+        $config['allowed_types'] = 'gif|jpg|png';
+    
+        // now, taking into account that there can be more than one file, for each file we will have to do the upload
+        for ($i = 0; $i < $number_of_files; $i++)
+        {
+            $config['file_name'] = md5(time() . '_' . $i);
+            $_FILES['images']['name'] = $files['name'][$i];
+            $_FILES['images']['type'] = $files['type'][$i];
+            $_FILES['images']['tmp_name'] = $files['tmp_name'][$i];
+            $_FILES['images']['error'] = $files['error'][$i];
+            $_FILES['images']['size'] = $files['size'][$i];
+
+            
+            //now we initialize the upload library
+            $this->upload->initialize($config);
+            if ($this->upload->do_upload('images'))
+            {
+                $this->_uploaded[$i] = $this->upload->data();
+            }
+            else
+            {
+                $this->form_validation->set_message('fileupload_check', $this->upload->display_errors());
+                return FALSE;
+            }
+        }
+        return TRUE;
     }
 
     public function hazard_map()

@@ -36,7 +36,51 @@ class User extends CI_Controller {
 	{        
         $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
 		$this->template->load('users/index');
-	}
+    }
+    
+    public function edit_profile($id)
+    {
+        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
+		$this->template->load('admin/edit-profile');
+    }
+
+    public function edit_profile_submit()
+    {
+        $response = array();
+
+        $id = '';
+
+        if($this->input->post('user_id')){
+            $id  = $this->input->post('user_id');
+        }
+
+        $this->form_validation->set_rules('firstname','First Name', 'required');
+        $this->form_validation->set_rules('lastname','Last Name', 'required');
+        if($this->input->post('user_type')){
+            $this->form_validation->set_rules('user_type','User Type', 'required');
+        }
+
+        if ($this->form_validation->run() == FALSE) {
+            $response['validation_errors'] = validation_errors();
+            $response['success'] = FALSE;
+        }else{
+            if ($id) {
+                $res = $this->users_model->updateUser($id);    
+                if ($res) {
+                    $response['success'] = TRUE;
+                    $response['message'] = 'User updated successfully';
+                }else{
+                    $response['success'] = FALSE;
+                    $response['message'] = 'Error updating user';
+                }
+            }else{
+                $response['success'] = FALSE;
+                $response['message'] = 'Error retrieving data';
+            }
+        }
+        echo json_encode($response);
+        exit();
+    }
 	
 	public function datatable()
     {
@@ -55,7 +99,9 @@ class User extends CI_Controller {
 			$created = date('F jS Y h:i:sa', strtotime($r->created_at));
 			$edit_btn = '<a href="javascript:void(0);" data-id="' . $r->id . '" class="btn btn-success btn-icon mg-b-10 btnEdit"><div><i class="fa fa-fw fa-edit"></i></div></a>';
 			$delete_btn = ($r->id != 1) ? '<a href="javascript:void(0);" data-id="' . $r->id . '" class="btn btn-danger btn-icon mg-r-5 mg-b-10 btnDelete"><div><i class="fa fa-fw fa-trash"></i></div></a>' : '';
-			$action = $edit_btn . ' ' . $delete_btn;
+            $action_btn = $edit_btn . ' ' . $delete_btn;
+            
+            $action = ($r->id == $this->session->userdata['id']) ? '' : $action_btn ;
 
             if ($r->user_type == '1') {
                 $group = '<strong>Admin</strong>';
@@ -203,6 +249,46 @@ class User extends CI_Controller {
             }
         }
 
+
+        echo json_encode($response);
+        exit;
+    }
+
+    public function change_password()
+    {
+        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
+		$this->template->load('admin/change-password');
+    }
+
+    public function change_password_submit()
+    {
+        $response = array();
+
+        $this->form_validation->set_rules('old_pass','Old Password', 'required|min_length[8]');
+        $this->form_validation->set_rules('new_pass','New Password', 'required|min_length[8]');
+        $this->form_validation->set_rules('confirm_pass','Confirm Password', 'required|matches[new_pass]');
+        if ($this->form_validation->run() == FALSE) {
+
+            $response['validation_errors'] = validation_errors();
+            $response['success'] = FALSE;
+
+        }else{
+
+            $res = $this->users_model->validatePassword($this->input->post('old_pass'), $this->session->userdata['id']);
+            
+            if ($res) {
+
+                $updatePass = $this->users_model->updatePassword($this->session->userdata['id']);
+                if ($updatePass) {
+                    $response['success'] = TRUE;
+                    $response['message'] = 'Password updated successfully';
+                }
+            }else{
+                $response['success'] = FALSE;
+                $response['message'] = 'Old Password Incorret';
+            }
+
+        }
 
         echo json_encode($response);
         exit;

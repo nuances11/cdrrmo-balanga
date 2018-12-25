@@ -45,11 +45,19 @@ $route['admin/announcement/edit/(:num)'] = 'announcement/edit_post/$1';
 $route['admin/messages'] = 'contents/contact_message';
 $route['admin/messages/datatable'] = 'contents/contact_message_dataTable';
 $route['admin/message/show/(:num)'] = 'contents/show_message/$1';
+$route['admin/message/delete'] = 'contents/delete_message';
+
+$route['admin/send-text'] = 'announcement/send_text';
+$route['admin/send-text/submit'] = 'announcement/send_text_submit';
 
 $route['admin/users'] = 'user';
 $route['admin/users/datatable'] = 'user/datatable';
 $route['admin/users/action']['POST'] = 'user/do_action';
 $route['admin/users/get']['GET'] = 'user/get_user';
+$route['admin/edit-profile/(:num)'] = 'user/edit_profile/$1';
+$route['admin/edit-profile/submit'] = 'user/edit_profile_submit';
+$route['admin/change-password'] = 'user/change_password';
+$route['admin/change-password/submit'] = 'user/change_password_submit';
 
 $route['admin'] = 'admin';
 $route['logout'] = 'admin/logout';

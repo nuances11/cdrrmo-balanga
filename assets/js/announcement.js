@@ -94,5 +94,41 @@ $(document).ready(function () {
         
     });
 
+    $(document).on('submit', '#send_text_message_form', function(e) {
+        e.preventDefault();
+        // var inputs = $('numbers').tagsinput('items');
+        // console.log(inputs);
+        var data = $(this).serialize();
+        console.log(data);
+
+        var r = confirm("Are you sure you want to send this message?");
+
+        if(r == true){
+
+            $.ajax({
+                method : "POST",
+                url : base_url + 'admin/send-text/submit',
+                dataType : "JSON",
+                data : data,
+                success : function(response) {
+                    console.log(response);
+                    if (response.success) {
+                        $('#send_text_message_form').trigger('reset');
+                        toastr.success(response.message);
+                    }else{
+                        if (response.validation_errors) {
+                            toastr.error(response.validation_errors);
+                        }else{
+                            toastr.error(response.message);
+                        }
+                    }
+                }
+            })
+
+        }
+    })
+
+    
+
 
 })

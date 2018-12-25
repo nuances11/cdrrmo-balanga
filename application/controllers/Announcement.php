@@ -14,7 +14,8 @@ class Announcement extends CI_Controller {
 			'assets/lib/highlightjs/github.css',
 			'assets/lib/select2/css/select2.min.css',
 			'assets/lib/summernote/summernote-bs4.css',
-			'assets/css/toastr.min.css',
+            'assets/css/toastr.min.css',
+            'assets/css/bootstrap-tagsinput.css',
         );
 
         $js = array(
@@ -23,8 +24,10 @@ class Announcement extends CI_Controller {
 			'assets/lib/datatables-responsive/dataTables.responsive.js',
 			'assets/lib/select2/js/select2.min.js',
 			'assets/js/toastr.min.js',
-			'assets/lib/summernote/summernote-bs4.min.js',
-			'assets/js/announcement.js'
+            'assets/lib/summernote/summernote-bs4.min.js',
+            'assets/js/bootstrap-tagsinput.js',
+            'assets/js/announcement.js'
+            
         );
 
         $this->template->set_additional_css($styles);
@@ -70,7 +73,6 @@ class Announcement extends CI_Controller {
 
             $data[] = array(
 
-                $r->id,
                 $author,
 				$content,
 				$show_post,
@@ -289,6 +291,66 @@ class Announcement extends CI_Controller {
         }else{
             redirect('404_override');
         }
+    }
+
+    public function send_text()
+    {
+        $this->template->set_title('Admin - Text Messages');
+        $this->template->load_sub('user', $this->users_model->getUser($this->session->userdata['id']));
+		$this->template->load('announcement/send-text');
+    }
+
+    public function send_text_submit()
+    {
+        $response = array();
+        
+        $this->form_validation->set_rules('numbers[]','Number', 'required|regex_match[^(09|\+639)\d{9}$^]',
+            array('regex_match' => 'Please provide a valid %s <strong>ex: 09 or +639</strong>'));
+        $this->form_validation->set_rules('content','Content', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $response['validation_errors'] = validation_errors();
+            $response['success'] = FALSE;
+
+        }else{
+
+            $numbers = $this->input->post('numbers'); 
+            $content = $this->input->post('content');
+            $num_arr = explode (",", $numbers);
+            $_isGoodNumber = TRUE;
+
+            if (!empty($num_arr)) {
+            
+                foreach ($num_arr as $num) {
+                    if(!preg_match('^(09|\+639)\d{9}$^', $num)) {
+                        $_isGoodNumber = FALSE;
+                    }
+                }
+            }
+    
+            if ($_isGoodNumber) {
+                foreach ($num_arr as $num) {
+                    $result = $this->itexmo($num, $content);
+                }
+            }
+            
+            if ($result == ""){
+                $response['success'] = FALSE;
+                $response['message'] = 'No response from server';	
+            }else if ($result == 0){
+                $response['success'] = TRUE;
+                $response['message'] = 'Message Sent!';	
+            }
+            else{	
+                $response['success'] = FALSE;
+                $response['message'] = "Error Num ". $result . " was encountered!";
+            }
+
+        }
+
+        echo json_encode($response);
+        exit;
     }
 
     public function test(){

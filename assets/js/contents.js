@@ -1,3 +1,27 @@
+$(document).ready(function(){
+    // Activate Carousel
+    $("#myCarousel").carousel();
+      
+    // Enable Carousel Indicators
+    $(".item1").click(function(){
+      $("#myCarousel").carousel(0);
+    });
+    $(".item2").click(function(){
+      $("#myCarousel").carousel(1);
+    });
+    $(".item3").click(function(){
+      $("#myCarousel").carousel(2);
+    });
+      
+    // Enable Carousel Controls
+    $(".carousel-control-prev").click(function(){
+      $("#myCarousel").carousel("prev");
+    });
+    $(".carousel-control-next").click(function(){
+      $("#myCarousel").carousel("next");
+    });
+});
+
 $(document).ready(function () {
 
     var base_url = $('meta[name=base_url]').attr("content");
@@ -6,7 +30,7 @@ $(document).ready(function () {
     $('#update_vehicle_and_driver_form').hide();
     $('#update_evacuation_center_form').hide();
 
-    var floodDataTable =  $('#messages').DataTable({
+    var messagesDataTable =  $('#messages').DataTable({
         "ajax": {
             url : base_url + 'admin/messages/datatable',
             type : 'GET'
@@ -311,6 +335,40 @@ $(document).ready(function () {
 
                         $('#update_evacuation_center_form').trigger('reset');
                         $('#add_evacuation_center_form').trigger('reset');
+                    }else{
+                        if (response.validation_errors) {
+                            toastr.error(response.validation_errors);
+                        }else{
+                            toastr.error(response.message);
+                        }
+                    }
+                }
+            });
+        }
+
+    })
+    
+    $(document).on('click', '#messages .btnDelete', function(e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        var r = confirm("Are you sure you want to delete this message?");
+
+        var data = {
+            id : id,
+        };
+
+        if (r == true) {
+            $.ajax({
+                type: "POST",
+                url: base_url + "admin/message/delete",
+                data: data,
+                dataType: "json",
+                success: function(response)
+                {
+                    console.log(response);
+                    if (response.success) {
+                        toastr.success(response.message);
+                        messagesDataTable.ajax.reload();
                     }else{
                         if (response.validation_errors) {
                             toastr.error(response.validation_errors);

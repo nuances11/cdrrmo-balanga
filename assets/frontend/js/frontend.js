@@ -4,14 +4,18 @@ $(document).ready(function() {
 
     $(document).on('submit', '#contactform', function(e) {
         e.preventDefault();
-        var data = $(this).serialize();
+        var data = new FormData(this);
         var alert = $('#message-contact');
+
+        console.log(data);
 
         $.ajax({
             method : "POST",
             url : base_url + 'contact-us/send',
             dataType : "JSON",
             data : data,
+            contentType: false,
+            processData: false,
             success : function(response) {
                 console.log(response);
                 if (response.success) {

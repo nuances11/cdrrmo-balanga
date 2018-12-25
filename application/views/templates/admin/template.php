@@ -90,6 +90,7 @@
 			<ul class="sl-menu-sub nav flex-column">
 				<li class="nav-item"><a href="<?php echo base_url() . 'admin/announcement' ;?>" class="nav-link">Add Post</a></li>
 				<li class="nav-item"><a href="<?php echo base_url() . 'admin/announcement/all' ;?>" class="nav-link">All Post</a></li>
+				<li class="nav-item"><a href="<?php echo base_url() . 'admin/send-text' ;?>" class="nav-link">Send Text</a></li>
 			</ul>
 		</div><!-- sl-sideleft-menu -->
 
@@ -111,7 +112,8 @@
 					</a>
 					<div class="dropdown-menu dropdown-menu-header wd-200">
 						<ul class="list-unstyled user-profile-nav">
-							<li><a href=""><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
+							<li><a href="<?php echo base_url() ;?>admin/change-password"><i class="icon icon ion-locked"></i> Change Password</a></li>
+							<li><a href="<?php echo base_url() ;?>admin/edit-profile/<?= $user->id;?>"><i class="icon fa fa-gear"></i> Edit Profile</a></li>
 							<li><a href="<?php echo base_url() ;?>logout"><i class="icon ion-power"></i> Sign Out</a></li>
 						</ul>
 					</div><!-- dropdown-menu -->

@@ -738,5 +738,27 @@ class Contents extends CI_Controller
         exit();
     }
 
+    public function delete_message()
+    {
+        $reponse = array();
+        $id = $this->input->post('id');
+        $res = $this->contents_model->deleteMessage($id);
+
+        if ($res) {
+
+            $response['success'] = TRUE;
+            $response['message'] = 'Data deleted successfully';
+
+        }else{
+
+            $response['success'] = FALSE;
+            $response['message'] = 'Error deleting data';
+
+        }
+
+        echo json_encode($response);
+        exit;
+    }
+
 
 } 

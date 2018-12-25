@@ -105,10 +105,9 @@
 				<div class="col-md-3 col-md-offset-1 col-sm-3">
 					<h3>Discover</h3>
 					<ul>
-						<li><a href="#">LINK 1</a></li>
-						<li><a href="#">LINK 2</a></li>
-						<li><a href="#">LINK 3</a></li>
-						<li><a href="#">LINK 4</a></li>
+						<li><a href="<?php echo base_url();?>hazard-map">Hazard Map</a></li>
+						<li><a href="<?php echo base_url();?>evacuation">Evacuation</a></li>
+						<li><a href="<?php echo base_url();?>contact-us">Contact</a></li>
 					</ul>
 				</div>
 				<div class="col-md-4 col-sm-3" id="contact_bg">

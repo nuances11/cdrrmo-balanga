@@ -7,7 +7,7 @@
 			<h3>Contact us</h3>
 			<div>
 				<div id="message-contact"></div>
-				<form id="contactform">
+				<?php echo form_open_multipart('imageupload/doupload', 'id="contactform"');?>
 					<div class="row">
 						<div class="col-md-6 col-sm-6">
 							<div class="form-group">
@@ -44,6 +44,12 @@
 								 placeholder="Type your message..."></textarea>
 							</div>
 						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>Upload Image:</label>
+								<input name="images[]" class="styled" id="image" type="file" multiple="" />
+							</div>
+						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6">
@@ -51,7 +57,7 @@
 							<!-- <p><input type="submit" value="Submit" class="btn_1" id="submit-contact"></p> -->
 						</div>
 					</div>
-				</form>
+				<?php echo form_close() ?>
 			</div>
 		</div>
 		<!-- End col lg 9 -->
